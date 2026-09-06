@@ -18,4 +18,6 @@ typedef struct {
     uint16_t qclass;
 } question;
 
+dns_header decode_header(uint8_t *b);
+
 #endif
