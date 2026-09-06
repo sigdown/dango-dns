@@ -13,7 +13,7 @@ typedef struct {
 } dns_header;
 
 typedef struct {
-    uint8_t *qname;
+    uint8_t qname[255];
     uint16_t qtype;
     uint16_t qclass;
 } question;
