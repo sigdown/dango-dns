@@ -1,24 +1,11 @@
+#include "dns.h"
+#include "io.h"
 #include <netinet/in.h>
 #include <stdio.h>
 #include <unistd.h>
 #include <sys/socket.h>
 #include <arpa/inet.h>
 #include <string.h>
-
-typedef struct {
-    uint16_t id;
-    uint16_t flags;
-    uint16_t qdcount;
-    uint16_t ancount;
-    uint16_t nscount;
-    uint16_t arcount;
-} dns_header;
-
-typedef struct {
-    uint8_t *qname;
-    uint16_t qtype;
-    uint16_t qclass;
-} question;
 
 int main(int argc, char **argv) {
 
@@ -78,6 +65,9 @@ int main(int argc, char **argv) {
     unsigned char response[4096];
 
     ssize_t n = recvfrom(fd, response, sizeof(response), 0, NULL, NULL);
+
+    dns_header h = decode_header(response);
+    print_header(&h);
 
     close(fd);
 }

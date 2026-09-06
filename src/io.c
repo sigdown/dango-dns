@@ -2,7 +2,7 @@
 
 #include <stdio.h>
 
-static void print_flags(uint16_t flags) {
+static void print_flags(const uint16_t flags) {
     printf("qr: %d ", flags >> 15);
     printf("opcode: %d ", (flags >> 11) & 0xf);
     printf("aa: %d ", (flags >> 10) & 0x1);
@@ -13,7 +13,7 @@ static void print_flags(uint16_t flags) {
     printf("rcode: %d\n", flags & 0xf);
 }
 
-void print_header(dns_header *h) {
+void print_header(const dns_header *h) {
     uint16_t flags = h->flags;
     
     printf("id: 0x%X\n", h->id);

@@ -2,6 +2,7 @@
 #define DNS_H
 
 #include <stdint.h>
+#include <string.h>
 
 typedef struct {
     uint16_t id;
@@ -18,6 +19,7 @@ typedef struct {
     uint16_t qclass;
 } question;
 
-dns_header decode_header(uint8_t *b);
+dns_header decode_header(const uint8_t *b);
+size_t decode_qname(const uint8_t *buf);
 
 #endif

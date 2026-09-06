@@ -3,6 +3,6 @@
 
 #include "dns.h"
 
-void print_header(dns_header *h);
+void print_header(const dns_header *h);
 
 #endif

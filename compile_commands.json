@@ -1,6 +1,6 @@
 [
   {
-    "file": "/home/sigdown/Projects/C/dango-dns/src/io.c",
+    "file": "/home/sigdown/Projects/C/dango-dns/src/main.c",
     "arguments": [
       "/usr/bin/cc",
       "-I/home/sigdown/Projects/C/dango-dns/headers",
@@ -10,15 +10,15 @@
       "-Wpedantic",
       "-MD",
       "-MT",
-      "CMakeFiles/dango.dir/src/io.c.o",
+      "CMakeFiles/dango.dir/src/main.c.o",
       "-MF",
-      "CMakeFiles/dango.dir/src/io.c.o.d",
+      "CMakeFiles/dango.dir/src/main.c.o.d",
       "-o",
-      "CMakeFiles/dango.dir/src/io.c.o",
+      "CMakeFiles/dango.dir/src/main.c.o",
       "-c",
-      "/home/sigdown/Projects/C/dango-dns/src/io.c"
+      "/home/sigdown/Projects/C/dango-dns/src/main.c"
     ],
     "directory": "/home/sigdown/Projects/C/dango-dns/build",
-    "output": "CMakeFiles/dango.dir/src/io.c.o"
+    "output": "CMakeFiles/dango.dir/src/main.c.o"
   }
 ]
