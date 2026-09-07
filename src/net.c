@@ -62,4 +62,6 @@ int close_udp(int fd) {
     }
 
     close(fd);
+
+    return 0;
 }
