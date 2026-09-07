@@ -1,5 +1,6 @@
 #include "cli.h"
 
+#include <bits/getopt_core.h>
 #include <getopt.h>
 #include <stdlib.h>
 #include <string.h>
@@ -21,10 +22,34 @@ static uint16_t parse_qtype(const char *s)
 
 cli_options parse_cli(int argc, char **argv) {
     cli_options opts = {
-        .domain = "example.com",
+        .cmd = RESOLVE,
+        .domain = NULL,
         .server = "1.1.1.1",
         .qtype = 1,
     };
+
+    if (argc < 2) {
+        fprintf(stderr, "usage: %s [resolve|trace|probe] <domain> [options]\n", argv[0]);
+        exit(EXIT_FAILURE);
+    }
+
+    int arg_start = 1;
+
+    if (strcmp(argv[1], "resolve") == 0) {
+        opts.cmd = RESOLVE;
+        arg_start = 2;
+    } else if (strcmp(argv[1], "trace") == 0) {
+        opts.cmd = TRACE;
+        arg_start = 2;
+    } else if (strcmp(argv[1], "probe") == 0) {
+        opts.cmd = PROBE;
+        arg_start = 2;
+    } else {
+        opts.cmd = RESOLVE;
+        arg_start = 1;
+    }
+
+    optind = arg_start;
 
     static struct option long_options[] = {
         {"server", required_argument, NULL, 's'},

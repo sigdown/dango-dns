@@ -2,20 +2,46 @@
 #include "net.h"
 
 #include <netinet/in.h>
+#include <stdlib.h>
 #include <unistd.h>
 #include <sys/socket.h>
 #include <arpa/inet.h>
+#include <stdio.h>
 
 int main(int argc, char **argv) {
 
-    int fd 
+    printf("dango v0.1!\n");
 
     cli_options opts = parse_cli(argc, argv);
+
+    size_t request_len = 0;
+
+    switch (opts.cmd) {
+        case RESOLVE:
+            printf("resolve");
+            break;
+            
+        case TRACE:
+            fprintf(stderr, "trace: not implemented\n");
+            break;
+
+        case PROBE:
+            fprintf(stderr, "probe: not implemented\n");
+            break;
+    }
+
+    printf("dango: ok\n");
+
+    int fd = open_udp();
 
     uint8_t request[4096];
     uint8_t response[4096];
 
-    size_t offset = 0;
+    send_udp(fd, "1.1.1.1", 53, request, 29);
+
+    fetch_udp(fd, response, sizeof response);
+
+    exit(close_udp(fd));
 }
 
 /*

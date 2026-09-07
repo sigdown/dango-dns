@@ -21,9 +21,15 @@ target_include_directories(dango
         "${CMAKE_CURRENT_SOURCE_DIR}/headers"
 )
 
-target_compile_options(dango
-    PRIVATE
-        -Wall
-        -Wextra
-        -Wpedantic
+target_compile_options(dango PRIVATE
+    -Wall
+    -Wextra
+    -Wpedantic
+    -g
+    -O0
+    -fsanitize=address,undefined
+)
+
+target_link_options(dango PRIVATE
+    -fsanitize=address,undefined
 )
