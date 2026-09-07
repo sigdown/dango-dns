@@ -1,5 +1,5 @@
 #include "cli.h"
-#include "dns.h"
+#include "net.h"
 
 #include <netinet/in.h>
 #include <unistd.h>
@@ -7,6 +7,8 @@
 #include <arpa/inet.h>
 
 int main(int argc, char **argv) {
+
+    int fd 
 
     cli_options opts = parse_cli(argc, argv);
 

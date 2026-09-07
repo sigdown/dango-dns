@@ -1,9 +1,9 @@
 #include "net.h"
+
 #include <netinet/in.h>
 #include <stdio.h>
 #include <sys/socket.h>
 #include <arpa/inet.h>
-#include <unistd.h>
 
 int open_udp(void) {
     int fd = socket(AF_INET, SOCK_DGRAM, 0);
@@ -42,11 +42,7 @@ ssize_t send_udp(
     );
 }
 
-ssize_t fetch_udp(
-    int fd,
-    uint8_t *res,
-    size_t len
-) {
+ssize_t fetch_udp(int fd, uint8_t *res, size_t len) {
     ssize_t n = recvfrom(
         fd, 
         res, 
