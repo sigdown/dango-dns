@@ -1,16 +1,22 @@
+#include "cli.h"
 #include "dns.h"
-#include "io.h"
+
 #include <netinet/in.h>
-#include <stdio.h>
 #include <unistd.h>
 #include <sys/socket.h>
 #include <arpa/inet.h>
-#include <string.h>
 
 int main(int argc, char **argv) {
 
-    uint8_t buf[512];
+    cli_options opts = parse_cli(argc, argv);
 
+    uint8_t request[4096];
+    uint8_t response[4096];
+
+    size_t offset = 0;
+}
+
+/*
     size_t offset = 0;
 
     // header
@@ -69,5 +75,4 @@ int main(int argc, char **argv) {
     dns_header h = decode_header(response);
     print_header(&h);
 
-    close(fd);
-}
+    close(fd);*/

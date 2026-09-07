@@ -6,10 +6,17 @@
 static uint16_t read_u16(const uint8_t *b, size_t *offset) {
     uint16_t raw;
 
-    memcpy(&raw, b + *offset, sizeof(raw));
+    memcpy(&raw, b + *offset, sizeof raw);
     *offset += sizeof raw;
 
     return htons(raw);
+}
+
+static void write_u16(uint8_t *b, size_t *offset, uint16_t value) {
+    uint16_t raw = htons(value);
+
+    memcpy(b + *offset, &raw, sizeof raw);
+    *offset += sizeof raw;
 }
 
 dns_header decode_header(const uint8_t *b) {
@@ -25,4 +32,17 @@ dns_header decode_header(const uint8_t *b) {
     h.arcount = read_u16(b, &offset);
 
     return h;
+}
+
+size_t encode_header(const dns_header *h, uint8_t *b) {
+    size_t offset = 0;
+
+    write_u16(b, &offset, h->id);
+    write_u16(b, &offset, h->flags);
+    write_u16(b, &offset, h->qdcount);
+    write_u16(b, &offset, h->ancount);
+    write_u16(b, &offset, h->nscount);
+    write_u16(b, &offset, h->arcount);
+
+    return offset;
 }
