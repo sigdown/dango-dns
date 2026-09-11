@@ -79,7 +79,7 @@ bool read_u32(dango_cur_t *cur, uint32_t *out) {
     *out = ((uint32_t)buf->data[cur->pos] << 24) | 
         ((uint32_t)buf->data[cur->pos + 1] << 16) | 
         ((uint32_t)buf->data[cur->pos + 2] << 8) | 
-        buf->data[cur->pos];
+        buf->data[cur->pos + 4];
     
     cur->pos += 4;
 
