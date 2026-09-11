@@ -1,11 +1,13 @@
 #include "dns.h"
+#include "buffer.h"
 
 #include <arpa/inet.h>
 #include <netinet/in.h>
 
 dns_header decode_header(dango_cur_t *cur) {
     dns_header h;
-    h.id = read_u16(cur);
+
+    if (!read_u16(cur, &h.id)) return 
 }
 
 /*

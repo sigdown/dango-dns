@@ -8,6 +8,13 @@ dango_buf_t buffer_init(size_t init_cap) {
     dango_buf_t buf;
 
     buf.data = malloc(init_cap);
+
+    if (buf.data == NULL) {
+        buf.len = 0;
+        buf.cap = 0;
+        return buf;
+    }
+
     buf.len = 0;
     buf.cap = init_cap;
 
@@ -67,7 +74,7 @@ bool read_u16(dango_cur_t *cur, uint16_t *out) {
 
     cur->pos += 2;
 
-    return out;
+    return true;
 }
 
 bool read_u32(dango_cur_t *cur, uint32_t *out) {
@@ -79,7 +86,7 @@ bool read_u32(dango_cur_t *cur, uint32_t *out) {
     *out = ((uint32_t)buf->data[cur->pos] << 24) | 
         ((uint32_t)buf->data[cur->pos + 1] << 16) | 
         ((uint32_t)buf->data[cur->pos + 2] << 8) | 
-        buf->data[cur->pos + 4];
+        buf->data[cur->pos + 3];
     
     cur->pos += 4;
 
