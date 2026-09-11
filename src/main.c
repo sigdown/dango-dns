@@ -16,11 +16,16 @@ int main(int argc, char **argv) {
     printf("dango hello v0.1");
 
     dango_buf_t response_buf = buffer_init(4096);
-    dango_cur_t respose_cur = from_buf(&response_buf);
 
-    int fd = open_udp();
+    int fd = udp_open();
 
-    
+    ssize_t n = udp_fetch(fd, &response_buf);
 
-    close_udp(fd);
+    if (n < 0)
+        exit(1);
+
+    udp_close(fd);
+
+    buffer_free(&response_buf);
+    exit(0);
 }
