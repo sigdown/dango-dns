@@ -41,7 +41,7 @@ ssize_t udp_fetch(int fd, dango_buf_t *buf) {
     ssize_t n = recvfrom(
         fd, 
         buf->data, 
-        buf->len, 
+        buf->cap, 
         0, 
         NULL, 
         NULL

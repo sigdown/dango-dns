@@ -1,31 +1,62 @@
-#include "cli.h"
-#include "dns.h"
-#include "io.h"
 #include "net.h"
-#include "query_builder.h"
 #include "buffer.h"
 
 #include <netinet/in.h>
 #include <stdlib.h>
+#include <string.h>
 #include <unistd.h>
 #include <sys/socket.h>
 #include <arpa/inet.h>
 #include <stdio.h>
 
-int main(int argc, char **argv) {
-    printf("dango hello v0.1");
+uint8_t query[] = {
+    0x12, 0x34,             // transaction ID
+    0x01, 0x00,             // flags: standard query
+    0x00, 0x01,             // 1 question
+    0x00, 0x00,             // answers
+    0x00, 0x00,             // authority
+    0x00, 0x00,             // additional
 
-    dango_buf_t response_buf = buffer_init(4096);
+    0x07, 'e','x','a','m','p','l','e',
+    0x03, 'c','o','m',
+    0x00,                   // end of name
+
+    0x00, 0x01,             // A
+    0x00, 0x01              // IN
+};
+
+void print_buffer_hex(const uint8_t *buf, size_t len) {
+    for (size_t i = 0; i < len; i++) {
+        printf("%02X ", buf[i]); 
+    }
+    printf("\n");
+}
+
+int main(void) {
+    printf("dango hello v0.1\n");
+
+    dango_buf_t response_buf = buffer_init(1500);
+    dango_buf_t request_buf = buffer_init(1500);
+
+    memcpy(request_buf.data, query, 29);
+    request_buf.len = 29;
+    print_buffer_hex(request_buf.data, 29);
 
     int fd = udp_open();
 
-    ssize_t n = udp_fetch(fd, &response_buf);
+    ssize_t n = udp_send(fd, "8.8.8.8", 53, &request_buf);
+
+    n = udp_fetch(fd, &response_buf);
 
     if (n < 0)
         exit(1);
 
     udp_close(fd);
 
+    print_buffer_hex(response_buf.data, response_buf.len);
+
     buffer_free(&response_buf);
+    buffer_free(&response_buf);
+
     exit(0);
 }
