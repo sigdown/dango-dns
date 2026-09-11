@@ -4,10 +4,14 @@
 #include <arpa/inet.h>
 #include <netinet/in.h>
 
-dns_header decode_header(dango_cur_t *cur) {
-    dns_header h;
+int decode_header(dango_cur_t *cur, dns_header *hdr) {
+    if (!read_u16(cur, &hdr->id)) return -1;
+    if (!read_u16(cur, &hdr->flags)) return -1;
+    if (!read_u16(cur, &hdr->qdcount)) return -1;
+    if (!read_u16(cur, &hdr->ancount)) return -1;
+    if (!read_u16(cur, &hdr->nscount)) return -1;
 
-    if (!read_u16(cur, &h.id)) return 
+    return -1;
 }
 
 /*

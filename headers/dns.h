@@ -3,7 +3,6 @@
 
 #include "buffer.h"
 #include <stdint.h>
-#include <string.h>
 
 // DNS wire format stuctures
 
@@ -24,6 +23,6 @@ typedef struct {
 
 // parse functions
 
-dns_header decode_header(dango_cur_t* cur);
+int decode_header(dango_cur_t* cur, dns_header *hdr);
 
 #endif

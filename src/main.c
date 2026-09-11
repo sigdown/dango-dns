@@ -1,3 +1,5 @@
+#include "dns.h"
+#include "io.h"
 #include "net.h"
 #include "buffer.h"
 
@@ -35,12 +37,13 @@ void print_buffer_hex(const uint8_t *buf, size_t len) {
 int main(void) {
     printf("dango hello v0.1\n");
 
-    dango_buf_t response_buf = buffer_init(1500);
-    dango_buf_t request_buf = buffer_init(1500);
+    dango_buf_t response_buf = buffer_init(512);
+    dango_buf_t request_buf = buffer_init(512);
+
+    dango_cur_t response_cur = from_buf(&response_buf);
 
     memcpy(request_buf.data, query, 29);
     request_buf.len = 29;
-    print_buffer_hex(request_buf.data, 29);
 
     int fd = udp_open();
 
@@ -54,6 +57,14 @@ int main(void) {
     udp_close(fd);
 
     print_buffer_hex(response_buf.data, response_buf.len);
+
+    dns_header h;
+
+    decode_header(&response_cur, &h);
+
+    print_header(&h);
+
+    printf("%d", response_cur.pos);
 
     buffer_free(&response_buf);
     buffer_free(&response_buf);
