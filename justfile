@@ -2,7 +2,7 @@ alias b := build
 
 # configure build
 build-config:
-    cmake -S . -B build -G Ninja
+    cmake -B build
 
 # build executable
 build:

@@ -64,8 +64,6 @@ int main(void) {
 
     print_header(&h);
 
-    printf("%d", response_cur.pos);
-
     buffer_free(&response_buf);
     buffer_free(&response_buf);
 
