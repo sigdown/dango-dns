@@ -4,14 +4,30 @@
 #include <arpa/inet.h>
 #include <netinet/in.h>
 
-int decode_header(dango_cur_t *cur, dns_header *hdr) {
+int parse_header(dango_cur_t *cur, dns_header *hdr) {
     if (!read_u16(cur, &hdr->id)) return -1;
     if (!read_u16(cur, &hdr->flags)) return -1;
     if (!read_u16(cur, &hdr->qdcount)) return -1;
     if (!read_u16(cur, &hdr->ancount)) return -1;
     if (!read_u16(cur, &hdr->nscount)) return -1;
 
-    return -1;
+    return 0;
+}
+
+int parse_question(dango_cur_t *cur, dns_question *qst) {
+    dango_buf_t *buf = cur->buf;
+    uint8_t *qname = qst->qname;
+
+    while(buf->data[cur->pos] != 0) {
+        if(!read_u8(cur,qname)) return -1;
+        qname += 1;
+    }
+
+    if (!read_u8(cur, qname)) return -1;
+    if (!read_u16(cur, &qst->qtype)) return -1;
+    if (!read_u16(cur, &qst->qclass)) return -1;
+
+    return 0;
 }
 
 /*

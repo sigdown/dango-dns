@@ -16,13 +16,14 @@ typedef struct {
 } dns_header;
 
 typedef struct {
-    char qname[256];
+    uint8_t qname[256];
     uint16_t qtype;
     uint16_t qclass;
 } dns_question;
 
 // parse functions
 
-int decode_header(dango_cur_t* cur, dns_header *hdr);
+int parse_header(dango_cur_t *cur, dns_header *hdr);
+int parse_question(dango_cur_t *cur, dns_question *qst);
 
 #endif
