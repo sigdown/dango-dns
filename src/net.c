@@ -17,7 +17,12 @@ int udp_open(void) {
     return fd;
 }
 
-ssize_t udp_send(int fd, const char *ip, const uint16_t port, const dango_buf_t *buf) {
+ssize_t udp_send(
+    int fd, 
+    const char *ip, 
+    const uint16_t port, 
+    const dango_buf_t *buf
+) {
     struct sockaddr_in server = {
         .sin_family = AF_INET,
         .sin_port = htons(port)

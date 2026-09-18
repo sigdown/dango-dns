@@ -1,5 +1,5 @@
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -std=c17
+CFLAGS = -Wextra -Werror -std=c17
 
 SRC = $(wildcard src/*.c)
 TEST_SRC = $(wildcard tests/*.c)
